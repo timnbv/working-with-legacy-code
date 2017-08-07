@@ -6,7 +6,7 @@ import java.util.List;
 public class ResultAggregator {
 	
 	public AggregateSummary aggregateSummary(Patient patient) {
-		List<Result> pendingResults = ResultFetcher.getResultsFor(patient);
+		List<Result> pendingResults = getPendingResults(patient);
 		int sum = 0;
 		int minimum = 0;
 		int maximum = 0;
@@ -22,6 +22,10 @@ public class ResultAggregator {
 		BigDecimal count = new BigDecimal(pendingResults.size());
 		BigDecimal mean = new BigDecimal(sum).divide(count);
 		return new AggregateSummary(mean, minimum, maximum);
+	}
+
+	List<Result> getPendingResults(Patient patient) {
+		return ResultFetcher.getResultsFor(patient);
 	}
 
 }
